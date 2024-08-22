@@ -13,7 +13,7 @@
         }
 
         .container {
-            max-width: 600px;
+            max-width: 800px;
             margin: 0 auto;
             background-color: #fff;
             padding: 20px;
@@ -27,13 +27,27 @@
         }
 
         .form-group {
-            margin-bottom: 15px;
+            margin-bottom: 20px;
         }
 
         .form-group label {
             display: block;
             margin-bottom: 5px;
             color: #555;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        table, th, td {
+            border: 1px solid #ccc;
+        }
+
+        th, td {
+            padding: 10px;
+            text-align: left;
         }
 
         .form-group input,
@@ -45,16 +59,12 @@
             border-radius: 4px;
         }
 
-        .form-group textarea {
-            resize: vertical;
-        }
-
         .submit-btn {
             display: block;
             width: 100%;
             padding: 10px;
-            background-color: #28a745;
-            color: white;
+            background-color: #f1f1f1;
+            color: #333;
             border: none;
             border-radius: 4px;
             font-size: 16px;
@@ -62,13 +72,25 @@
         }
 
         .submit-btn:hover {
-            background-color: #218838;
+            background-color: #e1e1e1;
         }
 
-        .form-group select {
-            height: 40px;
+        .form-group textarea {
+            resize: vertical;
+        }
+
+        .number-input {
+            text-align: right;
         }
     </style>
+    <script>
+        function formatNumber(input) {
+            const value = input.value.replace(/,/g, '');
+            if (!isNaN(value) && value !== '') {
+                input.value = parseInt(value).toLocaleString('ja-JP');
+            }
+        }
+    </script>
 </head>
 <body>
 
@@ -76,13 +98,13 @@
         <h2>財務診断レポート入力</h2>
         <form>
             <div class="form-group">
-                <label for="company-name">会社名</label>
+                <label for="company-name">会社名<span style="color: red;">*</span></label>
                 <input type="text" id="company-name" name="company-name" placeholder="会社名を入力してください" required>
             </div>
 
             <div class="form-group">
-                <label for="financial-year">対象年度</label>
-                <select id="financial-year" name="financial-year" required>
+                <label for="financial-year-1">対象年度1<span style="color: red;">*</span></label>
+                <select id="financial-year-1" name="financial-year-1" required>
                     <option value="">年度を選択してください</option>
                     <option value="2023">2023年</option>
                     <option value="2022">2022年</option>
@@ -92,23 +114,49 @@
             </div>
 
             <div class="form-group">
-                <label for="revenue">売上高 (円)</label>
-                <input type="number" id="revenue" name="revenue" placeholder="売上高を入力してください" required>
+                <label for="financial-year-2">対象年度2<span style="color: red;">*</span></label>
+                <select id="financial-year-2" name="financial-year-2" required>
+                    <option value="">年度を選択してください</option>
+                    <option value="2023">2023年</option>
+                    <option value="2022">2022年</option>
+                    <option value="2021">2021年</option>
+                    <!-- 他の年度を追加 -->
+                </select>
             </div>
 
             <div class="form-group">
-                <label for="profit">純利益 (円)</label>
-                <input type="number" id="profit" name="profit" placeholder="純利益を入力してください" required>
-            </div>
-
-            <div class="form-group">
-                <label for="borrowings">借入金 (円)</label>
-                <input type="number" id="borrowings" name="borrowings" placeholder="借入金を入力してください" required>
-            </div>
-
-            <div class="form-group">
-                <label for="capital">自己資本 (円)</label>
-                <input type="number" id="capital" name="capital" placeholder="自己資本を入力してください" required>
+                <label>財務データ<span style="color: red;">*</span></label>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>項目</th>
+                            <th>年度1</th>
+                            <th>年度2</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>売上高 (円)<span style="color: red;">*</span></td>
+                            <td><input type="text" name="revenue-1" class="number-input" onblur="formatNumber(this)" required></td>
+                            <td><input type="text" name="revenue-2" class="number-input" onblur="formatNumber(this)" required></td>
+                        </tr>
+                        <tr>
+                            <td>純利益 (円)<span style="color: red;">*</span></td>
+                            <td><input type="text" name="profit-1" class="number-input" onblur="formatNumber(this)" required></td>
+                            <td><input type="text" name="profit-2" class="number-input" onblur="formatNumber(this)" required></td>
+                        </tr>
+                        <tr>
+                            <td>借入金 (円)<span style="color: red;">*</span></td>
+                            <td><input type="text" name="borrowings-1" class="number-input" onblur="formatNumber(this)" required></td>
+                            <td><input type="text" name="borrowings-2" class="number-input" onblur="formatNumber(this)" required></td>
+                        </tr>
+                        <tr>
+                            <td>自己資本 (円)<span style="color: red;">*</span></td>
+                            <td><input type="text" name="capital-1" class="number-input" onblur="formatNumber(this)" required></td>
+                            <td><input type="text" name="capital-2" class="number-input" onblur="formatNumber(this)" required></td>
+                        </tr>
+                    </tbody>
+                </table>
             </div>
 
             <div class="form-group">
