@@ -85,9 +85,11 @@
     </style>
     <script>
         function formatNumber(input) {
-            const value = input.value.replace(/,/g, '');
+            let value = input.value.replace(/,/g, ''); // カンマを削除
             if (!isNaN(value) && value !== '') {
-                input.value = parseInt(value).toLocaleString('ja-JP');
+                input.value = Number(value).toLocaleString('ja-JP'); // 数値をカンマ区切りにフォーマット
+            } else {
+                input.value = ''; // 非数値の場合、フィールドを空にする
             }
         }
     </script>
@@ -109,7 +111,6 @@
                     <option value="2023">2023年</option>
                     <option value="2022">2022年</option>
                     <option value="2021">2021年</option>
-                    <!-- 他の年度を追加 -->
                 </select>
             </div>
 
@@ -120,7 +121,6 @@
                     <option value="2023">2023年</option>
                     <option value="2022">2022年</option>
                     <option value="2021">2021年</option>
-                    <!-- 他の年度を追加 -->
                 </select>
             </div>
 
