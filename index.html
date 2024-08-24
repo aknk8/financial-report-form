@@ -53,7 +53,7 @@
         .form-group input,
         .form-group select,
         .form-group textarea {
-            width: calc(100% - 22px);
+            width: 100%;
             padding: 10px;
             border: 1px solid #ccc;
             border-radius: 4px;
@@ -73,7 +73,7 @@
         }
 
         .submit-btn:hover {
-            background-color: #e1e1e1;
+            background-color: #218838;
         }
 
         .form-group textarea {
@@ -87,6 +87,55 @@
         .table-heading {
             text-align: center;
             font-weight: bold;
+        }
+
+        /* レスポンシブデザイン */
+        @media (max-width: 768px) {
+            .container {
+                padding: 15px;
+                width: 100%;
+                box-sizing: border-box;
+            }
+
+            th, td {
+                padding: 8px;
+                font-size: 14px;
+            }
+
+            h2 {
+                font-size: 1.5rem;
+            }
+
+            .submit-btn {
+                padding: 12px;
+                font-size: 18px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            th, td {
+                padding: 6px;
+                font-size: 12px;
+            }
+
+            h2 {
+                font-size: 1.25rem;
+            }
+
+            .submit-btn {
+                padding: 10px;
+                font-size: 16px;
+            }
+
+            .form-group input,
+            .form-group select,
+            .form-group textarea {
+                padding: 8px;
+            }
+
+            .form-group label {
+                font-size: 14px;
+            }
         }
     </style>
     <script>
