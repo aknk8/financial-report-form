@@ -84,107 +84,149 @@
             text-align: right;
         }
 
-        .section-title {
+        .table-heading {
+            text-align: center;
             font-weight: bold;
-            margin-top: 20px;
-            margin-bottom: 10px;
-            color: #333;
-            border-bottom: 2px solid #ccc;
-            padding-bottom: 5px;
+        }
+
+        /* レスポンシブデザイン */
+        @media (max-width: 768px) {
+            .container {
+                padding: 15px;
+                width: 100%;
+                box-sizing: border-box;
+            }
+
+            th, td {
+                padding: 8px;
+                font-size: 14px;
+            }
+
+            h2 {
+                font-size: 1.5rem;
+            }
+
+            .submit-btn {
+                padding: 12px;
+                font-size: 18px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            th, td {
+                padding: 6px;
+                font-size: 12px;
+            }
+
+            h2 {
+                font-size: 1.25rem;
+            }
+
+            .submit-btn {
+                padding: 10px;
+                font-size: 16px;
+            }
+
+            .form-group input,
+            .form-group select,
+            .form-group textarea {
+                padding: 8px;
+            }
+
+            .form-group label {
+                font-size: 14px;
+            }
         }
     </style>
+    <script>
+        function formatNumber(input) {
+            let value = input.value.replace(/,/g, ''); // カンマを削除
+            if (!isNaN(value) && value !== '') {
+                input.value = Number(value).toLocaleString('ja-JP'); // 数値をカンマ区切りにフォーマット
+            } else {
+                input.value = ''; // 非数値の場合、フィールドを空にする
+            }
+        }
+
+        function updateTableHeadings() {
+            const year1 = document.getElementById('financial-year-1').value;
+            const year2 = document.getElementById('financial-year-2').value;
+
+            document.getElementById('year-1-heading').innerText = year1 ? year1 + '年' : '年度1';
+            document.getElementById('year-2-heading').innerText = year2 ? year2 + '年' : '年度2';
+        }
+    </script>
 </head>
 <body>
 
     <div class="container">
         <h2>財務診断レポート入力</h2>
         <form>
-            <!-- 短期資産・負債のセクション -->
-            <div class="section-title">短期資産・負債</div>
             <div class="form-group">
-                <label for="short-term-loans">短期借入金</label>
-                <input type="text" id="short-term-loans" class="number-input" required>
-            </div>
-            <div class="form-group">
-                <label for="long-term-loans">長期借入金</label>
-                <input type="text" id="long-term-loans" class="number-input" required>
-            </div>
-            <div class="form-group">
-                <label for="cash">現預金</label>
-                <input type="text" id="cash" class="number-input" required>
-            </div>
-            <div class="form-group">
-                <label for="accounts-receivable">売掛金</label>
-                <input type="text" id="accounts-receivable" class="number-input" required>
-            </div>
-            <div class="form-group">
-                <label for="inventory">棚卸資産</label>
-                <input type="text" id="inventory" class="number-input" required>
-            </div>
-            <div class="form-group">
-                <label for="bills-receivable">受取手形</label>
-                <input type="text" id="bills-receivable" class="number-input" required>
-            </div>
-            <div class="form-group">
-                <label for="accounts-payable">買掛金</label>
-                <input type="text" id="accounts-payable" class="number-input" required>
-            </div>
-            <div class="form-group">
-                <label for="bills-payable">支払手形</label>
-                <input type="text" id="bills-payable" class="number-input" required>
+                <label for="company-name">会社名<span style="color: red;">*</span></label>
+                <input type="text" id="company-name" name="company-name" placeholder="会社名を入力してください" required>
             </div>
 
-            <!-- 資産・負債・自己資本のセクション -->
-            <div class="section-title">資産・負債・自己資本</div>
             <div class="form-group">
-                <label for="current-assets">流動資産</label>
-                <input type="text" id="current-assets" class="number-input" required>
-            </div>
-            <div class="form-group">
-                <label for="fixed-assets">固定資産</label>
-                <input type="text" id="fixed-assets" class="number-input" required>
-            </div>
-            <div class="form-group">
-                <label for="current-liabilities">流動負債</label>
-                <input type="text" id="current-liabilities" class="number-input" required>
-            </div>
-            <div class="form-group">
-                <label for="fixed-liabilities">固定負債</label>
-                <input type="text" id="fixed-liabilities" class="number-input" required>
-            </div>
-            <div class="form-group">
-                <label for="equity">自己資本</label>
-                <input type="text" id="equity" class="number-input" required>
+                <label for="financial-year-1">対象年度1<span style="color: red;">*</span></label>
+                <select id="financial-year-1" name="financial-year-1" onchange="updateTableHeadings()" required>
+                    <option value="">年度を選択してください</option>
+                    <option value="2023">2023年</option>
+                    <option value="2022">2022年</option>
+                    <option value="2021">2021年</option>
+                </select>
             </div>
 
-            <!-- 収益・利益のセクション -->
-            <div class="section-title">収益・利益</div>
             <div class="form-group">
-                <label for="revenue">売上高</label>
-                <input type="text" id="revenue" class="number-input" required>
-            </div>
-            <div class="form-group">
-                <label for="gross-profit">売上総利益</label>
-                <input type="text" id="gross-profit" class="number-input" required>
-            </div>
-            <div class="form-group">
-                <label for="operating-profit">経常利益</label>
-                <input type="text" id="operating-profit" class="number-input" required>
-            </div>
-            <div class="form-group">
-                <label for="net-income">当期純利益</label>
-                <input type="text" id="net-income" class="number-input" required>
-            </div>
-            <div class="form-group">
-                <label for="depreciation">減価償却費</label>
-                <input type="text" id="depreciation" class="number-input" required>
-            </div>
-            <div class="form-group">
-                <label for="taxes">法人税等</label>
-                <input type="text" id="taxes" class="number-input" required>
+                <label for="financial-year-2">対象年度2<span style="color: red;">*</span></label>
+                <select id="financial-year-2" name="financial-year-2" onchange="updateTableHeadings()" required>
+                    <option value="">年度を選択してください</option>
+                    <option value="2023">2023年</option>
+                    <option value="2022">2022年</option>
+                    <option value="2021">2021年</option>
+                </select>
             </div>
 
-            <!-- 送信ボタン -->
+            <div class="form-group">
+                <label>財務データ<span style="color: red;">*</span></label>
+                <table>
+                    <thead>
+                        <tr>
+                            <th class="table-heading">項目</th>
+                            <th class="table-heading" id="year-1-heading">年度1</th>
+                            <th class="table-heading" id="year-2-heading">年度2</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>売上高 (円)<span style="color: red;">*</span></td>
+                            <td><input type="text" name="revenue-1" class="number-input" onblur="formatNumber(this)" required></td>
+                            <td><input type="text" name="revenue-2" class="number-input" onblur="formatNumber(this)" required></td>
+                        </tr>
+                        <tr>
+                            <td>純利益 (円)<span style="color: red;">*</span></td>
+                            <td><input type="text" name="profit-1" class="number-input" onblur="formatNumber(this)" required></td>
+                            <td><input type="text" name="profit-2" class="number-input" onblur="formatNumber(this)" required></td>
+                        </tr>
+                        <tr>
+                            <td>借入金 (円)<span style="color: red;">*</span></td>
+                            <td><input type="text" name="borrowings-1" class="number-input" onblur="formatNumber(this)" required></td>
+                            <td><input type="text" name="borrowings-2" class="number-input" onblur="formatNumber(this)" required></td>
+                        </tr>
+                        <tr>
+                            <td>自己資本 (円)<span style="color: red;">*</span></td>
+                            <td><input type="text" name="capital-1" class="number-input" onblur="formatNumber(this)" required></td>
+                            <td><input type="text" name="capital-2" class="number-input" onblur="formatNumber(this)" required></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="form-group">
+                <label for="comments">その他のコメント</label>
+                <textarea id="comments" name="comments" rows="4" placeholder="備考があれば入力してください"></textarea>
+            </div>
+
             <button type="submit" class="submit-btn">レポートを生成</button>
         </form>
     </div>
